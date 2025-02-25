@@ -11,11 +11,21 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 20px;
 }
 
+/* Chat Wrapper */
+.chat-wrapper {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Chat Container */
 .chat-container {
-    width: 90%;
-    max-width: 400px;
+    width: 100%;
     background: white;
     padding: 20px;
     border-radius: 15px;
@@ -53,30 +63,33 @@ button:hover {
     background: #ff2a50;
 }
 
+/* Online Users (Now Below) */
 .users-container {
-    width: 250px;
-    position: fixed;
-    top: 50px;
-    left: 10px;
+    width: 100%;
+    max-width: 400px;
     background: white;
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
+    margin-top: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 .users-container h2 {
     margin: 0;
     padding-bottom: 10px;
-    text-align: center;
+    font-size: 18px;
 }
 
 #users-list {
     list-style: none;
     padding: 0;
+    max-height: 150px;
+    overflow-y: auto;
 }
 
 #users-list li {
-    padding: 5px;
+    padding: 8px;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
 }
@@ -100,6 +113,7 @@ button:hover {
     background: #ff1e45;
 }
 
+/* Name Modal */
 .name-modal {
     position: fixed;
     top: 0;
@@ -110,6 +124,7 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 .modal-content {
@@ -118,6 +133,9 @@ button:hover {
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 20;
+    width: 90%;
+    max-width: 320px;
 }
 
 .modal-content h2 {
@@ -141,4 +159,44 @@ button:hover {
 
 #save-username:hover {
     background: #ff1e45;
+}
+
+/* Responsive Fix */
+@media (max-width: 768px) {
+    .chat-wrapper {
+        max-width: 400px;
+    }
+
+    .chat-container {
+        padding: 15px;
+    }
+
+    #chat-box {
+        height: 250px;
+    }
+
+    .users-container {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-wrapper {
+        width: 100%;
+    }
+
+    .chat-container {
+        width: 100%;
+    }
+
+    .users-container {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 320px;
+        padding: 15px;
+    }
 }

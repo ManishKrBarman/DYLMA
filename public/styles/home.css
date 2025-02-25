@@ -136,3 +136,51 @@ p {
         opacity: 0;
     }
 }
+
+@media (max-width: 515px) {
+
+    h1,
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+
+    .buttons {
+        gap: 8px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+
+    .dotbtn {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+
+@media (max-width: 315px) {
+
+    h1,
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+
+    .buttons {
+        gap: 8px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.6rem;
+    }
+}

@@ -173,3 +173,99 @@ button {
         opacity: 0;
     }
 }
+
+
+@media (max-width: 1024px) {
+    .card {
+        width: 40vw;
+        height: 160px;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    button {
+        font-size: 1.2rem;
+        padding: 5px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .bigHeart {
+        width: 200px;
+        height: 200px;
+    }
+
+    .bigHeart::before,
+    .bigHeart::after {
+        width: 200px;
+        height: 200px;
+    }
+
+    .bigHeart::before {
+        top: -100px;
+    }
+
+    .bigHeart::after {
+        left: 100px;
+    }
+
+    .card {
+        width: 30vw;
+        height: 140px;
+        top: -60px;
+    }
+
+    h3 {
+        font-size: 1.0rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 5px 15px;
+    }
+}
+
+@media (max-width: 515px) {
+    .bigHeart {
+        width: 150px;
+        height: 150px;
+    }
+
+    .bigHeart::before,
+    .bigHeart::after {
+        width: 150px;
+        height: 150px;
+    }
+
+    .bigHeart::before {
+        top: -75px;
+    }
+
+    .bigHeart::after {
+        left: 75px;
+    }
+
+    .card {
+        width: 45vw;
+        height: 130px;
+        padding: 15px;
+        top: -40px;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    .btns {
+        /* flex-direction: column; */
+        gap: 10px;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        width: 100px;
+    }
+}
