@@ -52,3 +52,35 @@ button {
 button:hover {
     background: #ff2a50;
 }
+
+.users-container {
+    width: 250px;
+    position: fixed;
+    top: 50px;
+    left: 10px;
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.users-container h2 {
+    margin: 0;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+#users-list {
+    list-style: none;
+    padding: 0;
+}
+
+#users-list li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+#users-list li:hover {
+    background: #ffb3c6;
+}

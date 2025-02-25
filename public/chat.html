@@ -7,16 +7,24 @@
     <title>Love Chat 💖</title>
     <link rel="stylesheet" href="styles/chat.css">
 
-    <!-- ✅ Use Firebase v8 (DO NOT use v9+) -->
+    <!-- Firebase v8 -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
-    <!-- Chat JavaScript -->
     <script src="scripts/chat.js" defer></script>
 </head>
 
 <body>
     <div class="heart-bg"></div> <!-- Floating Hearts Animation -->
+
+    <!-- User List -->
+    <div class="users-container">
+        <h2>💑 Online Users</h2>
+        <ul id="users-list"></ul>
+    </div>
+
+    <!-- Chat Section -->
     <div class="chat-container">
         <h1>💬 Love Chat 💖</h1>
         <div id="chat-box"></div>
