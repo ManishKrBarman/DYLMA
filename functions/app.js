@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/calculate', (req, res) => {
-    res.sendFile('/public/wip.html', { root: __dirname });
+    res.sendFile('/public/calculate.html', { root: __dirname });
 });
 app.get('/propose', (req, res) => {
     res.sendFile('/public/card.html', { root: __dirname });
