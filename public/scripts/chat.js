@@ -15,42 +15,102 @@ if (!window.firebaseConfig) {
 
 // ✅ References
 const db = firebase.database();
-const chatRef = db.ref("messages");
 const usersRef = db.ref("users");
+let currentUserId = null;
+let currentUsername = null;
+let selectedUserId = null; // For private chat
 
-// ✅ Authenticate User (Anonymous)
-firebase.auth().signInAnonymously()
-    .then((userCredential) => {
-        const userId = userCredential.user.uid;
-        const username = "User-" + userId.substring(0, 5); // Generate a short username
+// ✅ Show Name Input Modal
+document.getElementById("name-modal").style.display = "block";
 
-        // Save user to DB
-        usersRef.child(userId).set({
-            username: username,
-            status: "online"
-        });
+document.getElementById("save-username").addEventListener("click", () => {
+    const nameInput = document.getElementById("username-input").value.trim();
 
-        // Remove user when they leave
-        window.addEventListener("beforeunload", () => {
-            usersRef.child(userId).remove();
-        });
+    if (nameInput !== "") {
+        startChat(nameInput);
+    }
+});
 
-        console.log("Logged in as:", username);
-    })
-    .catch((error) => console.error("Auth Error:", error));
+function startChat(username) {
+    firebase.auth().signInAnonymously()
+        .then((userCredential) => {
+            currentUserId = userCredential.user.uid;
+            currentUsername = username;
+
+            // Save user to DB
+            usersRef.child(currentUserId).set({
+                username: currentUsername,
+                status: "online"
+            });
+
+            // Hide name modal
+            document.getElementById("name-modal").style.display = "none";
+
+            // Remove user when they leave
+            window.addEventListener("beforeunload", () => {
+                usersRef.child(currentUserId).remove();
+            });
+
+            console.log("Logged in as:", currentUsername);
+            loadUsers();
+            loadMessages();
+        })
+        .catch((error) => console.error("Auth Error:", error));
+}
 
 // ✅ Update Online Users List
-usersRef.on("value", (snapshot) => {
-    const usersList = document.getElementById("users-list");
-    usersList.innerHTML = ""; // Clear list
+function loadUsers() {
+    usersRef.on("value", (snapshot) => {
+        const usersList = document.getElementById("users-list");
+        usersList.innerHTML = ""; // Clear list
 
-    snapshot.forEach((childSnapshot) => {
-        const userData = childSnapshot.val();
-        const li = document.createElement("li");
-        li.textContent = userData.username;
-        usersList.appendChild(li);
+        snapshot.forEach((childSnapshot) => {
+            const userData = childSnapshot.val();
+            const userId = childSnapshot.key;
+
+            if (userId !== currentUserId) { // Don't show self
+                const li = document.createElement("li");
+                li.textContent = userData.username;
+                li.dataset.userid = userId;
+                li.addEventListener("click", () => startPrivateChat(userId, userData.username));
+                usersList.appendChild(li);
+            }
+        });
     });
-});
+}
+
+// ✅ Function to Start Private Chat
+function startPrivateChat(userId, username) {
+    selectedUserId = userId;
+    document.getElementById("chat-title").textContent = `💌 Chat with ${username}`;
+    document.getElementById("back-to-public").style.display = "block";
+
+    loadMessages(); // Load private chat messages
+}
+
+// ✅ Function to Load Messages (Public or Private)
+function loadMessages() {
+    const chatBox = document.getElementById("chat-box");
+    chatBox.innerHTML = ""; // Clear chat
+
+    let ref;
+    if (selectedUserId) {
+        const chatId = [currentUserId, selectedUserId].sort().join("_");
+        ref = db.ref(`chats/${chatId}/messages`);
+    } else {
+        ref = db.ref("messages");
+    }
+
+    ref.off("child_added"); // Remove previous listeners
+    ref.on("child_added", (snapshot) => {
+        const data = snapshot.val();
+        const messageDiv = document.createElement("div");
+        messageDiv.textContent = `${data.username}: ${data.text}`;
+        messageDiv.classList.add("chat-message");
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+}
 
 // ✅ Function to Send Messages
 function sendMessage() {
@@ -58,19 +118,25 @@ function sendMessage() {
     const messageText = messageInput.value.trim();
 
     if (messageText !== "") {
-        chatRef.push({ text: messageText });
+        let ref;
+        if (selectedUserId) {
+            const chatId = [currentUserId, selectedUserId].sort().join("_");
+            ref = db.ref(`chats/${chatId}/messages`);
+        } else {
+            ref = db.ref("messages");
+        }
+
+        ref.push({ username: currentUsername, text: messageText });
         messageInput.value = ""; // Clear input field
     }
 }
 
-// ✅ Function to Display Messages
-chatRef.on("child_added", (snapshot) => {
-    const chatBox = document.getElementById("chat-box");
-    const messageDiv = document.createElement("div");
-    messageDiv.textContent = snapshot.val().text;
-    messageDiv.classList.add("chat-message");
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+// ✅ Go Back to Public Chat
+document.getElementById("back-to-public").addEventListener("click", () => {
+    selectedUserId = null;
+    document.getElementById("chat-title").textContent = "💬 Love Chat 💖";
+    document.getElementById("back-to-public").style.display = "none";
+    loadMessages(); // Load public messages
 });
 
 // ✅ Event Listener for Send Button

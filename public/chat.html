@@ -16,6 +16,14 @@
 </head>
 
 <body>
+    <div class="name-modal" id="name-modal">
+        <div class="modal-content">
+            <h2>Enter Your Name</h2>
+            <input type="text" id="username-input" placeholder="Your name..." />
+            <button id="save-username">Start Chat</button>
+        </div>
+    </div>
+
     <div class="heart-bg"></div> <!-- Floating Hearts Animation -->
 
     <!-- User List -->
@@ -26,11 +34,13 @@
 
     <!-- Chat Section -->
     <div class="chat-container">
-        <h1>💬 Love Chat 💖</h1>
+        <h1 id="chat-title">💬 Love Chat 💖</h1>
+        <button id="back-to-public">🔙 Public Chat</button>
         <div id="chat-box"></div>
-        <input type="text" id="message" placeholder="Type your love message...">
+        <input type="text" id="message" placeholder="Type your message...">
         <button id="send-btn">Send 💌</button>
     </div>
 </body>
+
 
 </html>

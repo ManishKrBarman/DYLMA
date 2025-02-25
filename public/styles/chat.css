@@ -84,3 +84,61 @@ button:hover {
 #users-list li:hover {
     background: #ffb3c6;
 }
+
+#back-to-public {
+    display: none;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    background: #ff5e78;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#back-to-public:hover {
+    background: #ff1e45;
+}
+
+.name-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+    margin: 0 0 10px;
+}
+
+#username-input {
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 10px;
+}
+
+#save-username {
+    background: #ff5e78;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#save-username:hover {
+    background: #ff1e45;
+}
