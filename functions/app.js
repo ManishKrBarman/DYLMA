@@ -22,7 +22,7 @@ app.get('/propose', (req, res) => {
     res.sendFile('/public/card.html', { root: __dirname });
 });
 app.get('/chat', (req, res) => {
-    res.sendFile('/public/wip.html', { root: __dirname });
+    res.sendFile('/public/chat.html', { root: __dirname });
 });
 
 
