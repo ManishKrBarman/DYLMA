@@ -1,5 +1,6 @@
 const button = document.getElementById("myButton");
 const yesBtn = document.getElementById("yesBtn");
+const question = document.getElementById("question");
 
 button.addEventListener("mouseenter", (event) => {
     const viewportWidth = window.innerWidth;
@@ -35,8 +36,20 @@ button.addEventListener("mouseenter", (event) => {
 });
 
 yesBtn.addEventListener("click", () => {
-    alert("I'm glad you like it!");
-    window.location.href = "wip.html";
+    question.innerHTML = "Sure ?";
+    question.style.color = "red";
+    yesBtn.addEventListener("click", () => {
+        question.innerHTML = `<h2>love you</h2><h4 style="color: black;">wanna connect?</h4>`;
+        question.style.color = "red";
+        question.style.fontSize = "1.5rem";
+        button.style.display = "none";
+        yesBtn.innerText = "Yup !";
+        yesBtn.style.backgroundColor = "red";
+        yesBtn.style.color = "white";
+        yesBtn.addEventListener("click", () => {
+            window.location.href = "chat.html";
+        });
+    });
 });
 
 
